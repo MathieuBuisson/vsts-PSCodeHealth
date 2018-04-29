@@ -18,3 +18,9 @@ steps:
     targetFiles: task.json
     writeBOM: false
     actionOnMissing: fail
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'PSCodeHealth\task\task.json'
+    ArtifactName: task.json
+    publishLocation: Container

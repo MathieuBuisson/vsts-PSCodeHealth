@@ -14,7 +14,7 @@
         "Minor": #{Minor}#,
         "Patch": #{Build.BuildId}#
     },
-    "instanceNameFormat": "Echo $(samplestring)",
+    "instanceNameFormat": "PowerShell Code Quality Gate",
     "groups": [
         {
             "name": "advanced",
@@ -24,20 +24,20 @@
     ],
     "inputs": [
         {
-            "name": "samplepathinput",
+            "name": "sourceCodePath",
             "type": "filePath",
-            "label": "Sample Path",
-            "defaultValue": "",
-            "required": true,
-            "helpMarkDown": "A sample path which is relative to root of repo if empty"
-        },
-        {
-            "name": "samplestring",
-            "type": "string",
-            "label": "Sample String",
+            "label": "Path to Analyze",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "A sample string"
+            "helpMarkDown": "Path of the directory to search for PowerShell files to analyze (it can also be a single script or module). If empty, it defaults to the root of the repo."
+        },
+        {
+            "name": "testsPath",
+            "type": "filePath",
+            "label": "Pester Tests Path",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Path of the file or directory where Pester tests are located. If empty, it defaults to the same location as 'Path to Analyze'."
         },
         {
             "name": "samplebool",
@@ -50,8 +50,8 @@
         }
     ],
     "execution": {
-        "Node": {
-            "target": "index.js"
+        "PowerShell ": {
+            "target": "EntryPoint.ps1"
         }
     }
 }
