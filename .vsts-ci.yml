@@ -1,2 +1,13 @@
+trigger:
+- master
+- releases/*
+
+queue: Hosted VS2017
+
+name: $(BuildDefinitionName)_0.0$(Rev:.rr)
+
 steps:
-- script: echo hello world
+- powershell: |
+    Write-Host 'Hello World !'
+  displayName: Run a PowerShell Script
+  errorActionPreference: stop
