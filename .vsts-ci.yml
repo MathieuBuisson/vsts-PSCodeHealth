@@ -4,7 +4,7 @@ trigger:
 
 queue: Hosted VS2017
 
-name: $(BuildDefinitionName)_0.0$(Rev:.rr)
+name: $(Major).$(Minor).$(Rev:rr)
 
 steps:
 - powershell: |
