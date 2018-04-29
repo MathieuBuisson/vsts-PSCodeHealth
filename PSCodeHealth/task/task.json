@@ -12,7 +12,7 @@
     "version": {
         "Major": #{Major}#,
         "Minor": #{Minor}#,
-        "Patch": #{BuildID}#
+        "Patch": #{Build.BuildId}#
     },
     "instanceNameFormat": "Echo $(samplestring)",
     "groups": [
