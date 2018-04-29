@@ -4,10 +4,17 @@ trigger:
 
 queue: Hosted VS2017
 
-name: $(Major).$(Minor).$(Rev:rr)
+name: $(Major).$(Minor).$(BuildID)
 
 steps:
-- powershell: |
-    Write-Host 'Hello World !'
-  displayName: Run a PowerShell Script
-  errorActionPreference: stop
+- task: PowerShell@1
+  inputs:
+    scriptType: inlineScript
+    inlineScript: ' Write-Host "Hello World"'
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@2
+  inputs:
+    rootDirectory: 'PSCodeHealth\task'
+    targetFiles: task.json
+    writeBOM: false
+    actionOnMissing: fail

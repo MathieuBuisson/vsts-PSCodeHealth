@@ -1,0 +1,57 @@
+{
+    "id": "5b447ab3-b758-458e-b887-d1ec8c7554e6",
+    "name": "PSCodeHealth",
+    "friendlyName": "Gather PowerShell code quality metrics",
+    "description": "Gather PowerShell code quality metrics and enforce quality gates based on these metrics",
+    "helpMarkDown": "[More Information](https://github.com/MathieuBuisson/vsts-PSCodeHealth)",
+    "category": "Build and release",
+    "visibility": [
+        "Build"
+    ],
+    "author": "Mathieu Buisson",
+    "version": {
+        "Major": #{Major}#,
+        "Minor": #{Minor}#,
+        "Patch": #{BuildID}#
+    },
+    "instanceNameFormat": "Echo $(samplestring)",
+    "groups": [
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "samplepathinput",
+            "type": "filePath",
+            "label": "Sample Path",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "A sample path which is relative to root of repo if empty"
+        },
+        {
+            "name": "samplestring",
+            "type": "string",
+            "label": "Sample String",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A sample string"
+        },
+        {
+            "name": "samplebool",
+            "type": "boolean",
+            "label": "Sample Boolean",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "If this is true, this task will fail if any errors are written to the StandardError stream.",
+            "groupName": "advanced"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "index.js"
+        }
+    }
+}

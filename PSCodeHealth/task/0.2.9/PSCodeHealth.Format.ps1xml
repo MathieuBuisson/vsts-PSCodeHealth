@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PSCodeHealth.Function.HealthRecord</Name> 
+            <ViewSelectedBy>
+                <TypeName>PSCodeHealth.Function.HealthRecord</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Function Name</Label>
+                        <Width>27</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Lines of Code</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Complexity</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Contains Help</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Test Coverage</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>ScriptAnalyzer Findings</Label>
+                        <Alignment>Center</Alignment>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                    <TableColumnItems>
+                        <TableColumnItem>
+                            <PropertyName>FunctionName</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>LinesOfCode</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>Complexity</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>ContainsHelp</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <ScriptBlock>'{0} %' -f $_.TestCoverage.ToString()</ScriptBlock>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>ScriptAnalyzerFindings</PropertyName>
+                        </TableColumnItem>
+                    </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>PSCodeHealth.Overall.HealthReport</Name> 
+            <ViewSelectedBy>
+                <TypeName>PSCodeHealth.Overall.HealthReport</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Files</Label>
+                        <Width>8</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Functions</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>LOC (Average)</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Findings (Total)</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Findings (Average)</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Complexity (Average)</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Test Coverage</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                    <TableColumnItems>
+                        <TableColumnItem>
+                            <PropertyName>Files</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>Functions</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>LinesOfCodeAverage</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>ScriptAnalyzerFindingsTotal</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>ScriptAnalyzerFindingsAverage</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>ComplexityAverage</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <ScriptBlock>'{0} %' -f $_.TestCoverage.ToString()</ScriptBlock>
+                        </TableColumnItem>
+                    </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>PSCodeHealth.Compliance.Rule</Name> 
+            <ViewSelectedBy>
+                <TypeName>PSCodeHealth.Compliance.Rule</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Metric Name</Label>
+                        <Width>29</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Metric Group</Label>
+                        <Width>18</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Warning Threshold</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Fail Threshold</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Higher Is Better</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                    <TableColumnItems>
+                        <TableColumnItem>
+                            <PropertyName>MetricName</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>SettingsGroup</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>WarningThreshold</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>FailThreshold</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>HigherIsBetter</PropertyName>
+                        </TableColumnItem>
+                    </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>PSCodeHealth.Compliance.Result</Name> 
+            <ViewSelectedBy>
+                <TypeName>PSCodeHealth.Compliance.Result</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Metric Name</Label>
+                        <Width>29</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Warning Threshold</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Fail Threshold</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Value</Label>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Result</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                    <TableColumnItems>
+                        <TableColumnItem>
+                            <PropertyName>MetricName</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>WarningThreshold</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>FailThreshold</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>Value</PropertyName>
+                        </TableColumnItem>
+                        <TableColumnItem>
+                            <PropertyName>Result</PropertyName>
+                        </TableColumnItem>
+                    </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
