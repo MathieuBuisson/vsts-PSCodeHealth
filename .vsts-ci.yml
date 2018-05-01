@@ -10,7 +10,7 @@ steps:
 - task: PowerShell@1
   inputs:
     scriptType: inlineScript
-    inlineScript: ' Write-Host "Hello World"'
+    inlineScript: ' $PSVersionTable.PSVersion'
 
 - task: qetza.replacetokens.replacetokens-task.replacetokens@2
   inputs:
