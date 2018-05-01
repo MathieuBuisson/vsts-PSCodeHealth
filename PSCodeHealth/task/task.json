@@ -15,6 +15,10 @@
         "Patch": #{Build.BuildId}#
     },
     "instanceNameFormat": "PowerShell Code Quality Gate",
+    "demands": [
+        "DotNetFramework"
+    ],
+    "minimumAgentVersion": "2.133.3",
     "groups": [
         {
             "name": "advanced",
