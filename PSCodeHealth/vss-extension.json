@@ -1,35 +1,63 @@
 {
     "manifestVersion": 1,
     "id": "MB-PSCodeHealth-task",
-    "name": "Fabrikam Build and Release Tools",
-    "version": "0.0.1",
-    "publisher": "fabrikam",
+    "name": "Gather PowerShell code quality metrics",
+    "version": "#{Major}#.#{Minor}#.#{Build.BuildId}#",
+    "publisher": "MathieuBuisson",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
+    "description": "Gather PowerShell code quality metrics and enforce quality gates based on these metrics",
     "categories": [
         "Build and release"
     ],
+    "tags": [
+        "Code Metrics",
+        "Quality",
+        "Quality Gates",
+        "PowerShell"
+      ],
     "icons": {
         "default": "images/extension-icon.png"
     },
-    "files": [
-        {
-            "path": "buildAndReleaseTask"
+    "branding": {
+        "color": "#2470BC",
+        "theme": "dark"
+      },
+      "content": {
+        "details": { "path": "README.md" },
+        "license": { "path": "LICENSE.md" }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/MathieuBuisson/vsts-PSCodeHealth/blob/master/README.md"
+        },
+        "support": {
+            "uri": "https://github.com/MathieuBuisson/vsts-PSCodeHealth/issues"
+        },
+        "learn": {
+            "uri": "https://mathieubuisson.github.io"
         }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/MathieuBuisson/vsts-PSCodeHealth"
+    },
+    "files": [
+        { "path": "task" },
+        { "path": "images", "addressable": true }
     ],
     "contributions": [
         {
-            "id": "custom-build-release-task",
+            "id": "PSCodeHealth-Task",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "buildAndReleaseTask"
+                "name": "task"
             }
         }
     ]

@@ -14,8 +14,10 @@ steps:
 
 - task: qetza.replacetokens.replacetokens-task.replacetokens@2
   inputs:
-    rootDirectory: 'PSCodeHealth\task'
-    targetFiles: task.json
+    rootDirectory: PSCodeHealth
+    targetFiles: |
+     task\task.json
+     vss-extension.json
     writeBOM: false
     actionOnMissing: fail
 
@@ -23,4 +25,10 @@ steps:
   inputs:
     PathtoPublish: 'PSCodeHealth\task\task.json'
     ArtifactName: task.json
+    publishLocation: Container
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'PSCodeHealth\vss-extension.json'
+    ArtifactName: 'vss-extension.json'
     publishLocation: Container
