@@ -8,13 +8,13 @@
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
+    ],
     "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
     "categories": [
         "Build and release"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "images/extension-icon.png"
     },
     "files": [
         {
