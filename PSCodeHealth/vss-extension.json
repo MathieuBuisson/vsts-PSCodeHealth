@@ -21,7 +21,8 @@
         "default": "images/extension-icon.png"
     },
     "branding": {
-        "theme": "dark"
+        "color": "#FFFFFF",
+        "theme": "light"
     },
     "content": {
         "details": { "path": "README.md" },
