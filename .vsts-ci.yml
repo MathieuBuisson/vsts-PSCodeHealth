@@ -21,14 +21,16 @@ steps:
     writeBOM: false
     actionOnMissing: fail
 
-- task: PublishBuildArtifacts@1
+- task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
   inputs:
-    PathtoPublish: 'PSCodeHealth\task\task.json'
-    ArtifactName: task.json
-    publishLocation: Container
+    rootFolder: PSCodeHealth
+    outputPath: '$(Build.ArtifactStagingDirectory)'
+    extensionVisibility: private
+    extensionPricing: free
+  continueOnError: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'PSCodeHealth\vss-extension.json'
-    ArtifactName: 'vss-extension.json'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'BuildArtifacts'
     publishLocation: Container

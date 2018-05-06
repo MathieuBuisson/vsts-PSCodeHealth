@@ -5,9 +5,7 @@
     "version": "#{Major}#.#{Minor}#.#{Build.BuildId}#",
     "publisher": "MathieuBuisson",
     "targets": [
-        {
-            "id": "Microsoft.VisualStudio.Services"
-        }
+        { "id": "Microsoft.VisualStudio.Services" }
     ],
     "description": "Gather PowerShell code quality metrics and enforce quality gates based on these metrics",
     "categories": [

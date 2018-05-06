@@ -44,13 +44,12 @@
             "helpMarkDown": "Path of the file or directory where Pester tests are located. If empty, it defaults to the same location as 'Path to Analyze'."
         },
         {
-            "name": "samplebool",
+            "name": "recurse",
             "type": "boolean",
-            "label": "Sample Boolean",
+            "label": "Search SourceCodePath Recursively",
             "defaultValue": "false",
             "required": false,
-            "helpMarkDown": "If this is true, this task will fail if any errors are written to the StandardError stream.",
-            "groupName": "advanced"
+            "helpMarkDown": "To search PowerShell files in SourceCodePath and all subdirectories recursively."
         }
     ],
     "execution": {
