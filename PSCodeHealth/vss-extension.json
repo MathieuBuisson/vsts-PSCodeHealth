@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "MB-PSCodeHealth-task",
-    "name": "Gather PowerShell code quality metrics",
+    "name": "PSCodeHealth",
     "version": "#{Major}#.#{Minor}#.#{Build.BuildId}#",
     "publisher": "MathieuBuisson",
     "targets": [
@@ -21,10 +21,9 @@
         "default": "images/extension-icon.png"
     },
     "branding": {
-        "color": "#2470BC",
         "theme": "dark"
-      },
-      "content": {
+    },
+    "content": {
         "details": { "path": "README.md" },
         "license": { "path": "LICENSE.md" }
     },
