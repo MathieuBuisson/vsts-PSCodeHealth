@@ -67,7 +67,7 @@
             "defaultValue": "",
             "groupName": "htmlReport",
             "required": false,
-            "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\PSCodeHealthReport.html`"
+            "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\\PSCodeHealthReport.html`"
         }
     ],
     "execution": {
