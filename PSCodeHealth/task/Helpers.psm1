@@ -2,9 +2,11 @@ Function Get-TaskInputs {
     [CmdletBinding()]
     Param()
 
-    [string] $SourceCodePath = Get-VstsInput -Name SourceCodePath
-    [string] $TestsPath = Get-VstsInput -Name TestsPath
-    [bool] $Recurse = Get-VstsInput -Name Recurse -AsBool
+    [string]$RootDirectoryPath = Get-VstsTaskVariable -Name 'Build.SourcesDirectory'
+
+    [string]$SourceCodePath = Get-VstsInput -Name SourceCodePath -Default $RootDirectoryPath
+    [string]$TestsPath = Get-VstsInput -Name TestsPath -Default $RootDirectoryPath
+    [bool]$Recurse = Get-VstsInput -Name Recurse -AsBool
 }
 
 Function Write-TaskInputs {
