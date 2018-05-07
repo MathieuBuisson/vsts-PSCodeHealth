@@ -28,7 +28,7 @@
     ],
     "inputs": [
         {
-            "name": "sourceCodePath",
+            "name": "SourceCodePath",
             "type": "filePath",
             "label": "Path to Analyze",
             "defaultValue": "",
@@ -36,7 +36,7 @@
             "helpMarkDown": "Path of the directory to search for PowerShell files to analyze (it can also be a single script or module). If empty, it defaults to the root of the repo."
         },
         {
-            "name": "testsPath",
+            "name": "TestsPath",
             "type": "filePath",
             "label": "Pester Tests Path",
             "defaultValue": "",
@@ -44,7 +44,7 @@
             "helpMarkDown": "Path of the file or directory where Pester tests are located. If empty, it defaults to the same location as 'Path to Analyze'."
         },
         {
-            "name": "recurse",
+            "name": "Recurse",
             "type": "boolean",
             "label": "Search SourceCodePath Recursively",
             "defaultValue": "false",
@@ -53,8 +53,9 @@
         }
     ],
     "execution": {
-        "PowerShell ": {
-            "target": "EntryPoint.ps1"
+        "PowerShell3": {
+            "target": "EntryPoint.ps1",
+            "platforms": [ "windows" ]
         }
     }
 }
