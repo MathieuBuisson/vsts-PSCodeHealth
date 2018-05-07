@@ -24,6 +24,11 @@ Function Import-Dependencies {
     [CmdletBinding()]
     Param()
 
+    Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+    'Installing module [Pester] from the PowerShell Gallery ...'
+    Install-Module 'Pester' -Scope CurrentUser -Force -SkipPublisherCheck
+    Import-Module 'Pester'
+
     'Loading PSScriptAnalyzer module shipped in the VSTS extension'
     Import-Module "$PSScriptRoot\ps_modules\PSScriptAnalyzer\PSScriptAnalyzer.psd1" -Force
 
