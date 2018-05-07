@@ -21,9 +21,9 @@
     "minimumAgentVersion": "2.133.3",
     "groups": [
         {
-            "name": "advanced",
-            "displayName": "Advanced",
-            "isExpanded": false
+            "name": "htmlReport",
+            "displayName": "HTML Report",
+            "isExpanded": true
         }
     ],
     "inputs": [
@@ -50,6 +50,24 @@
             "defaultValue": "false",
             "required": false,
             "helpMarkDown": "To search PowerShell files in SourceCodePath and all subdirectories recursively."
+        },
+        {
+            "name": "GenerateHtmlReport",
+            "type": "boolean",
+            "label": "Generate an HTML report",
+            "defaultValue": "false",
+            "groupName": "htmlReport",
+            "required": false,
+            "helpMarkDown": "To instruct PSCodeHealth to generate a report as an HTML file."
+        },
+        {
+            "name": "HtmlReportPath",
+            "type": "string",
+            "label": "HTML report path (including file name)",
+            "defaultValue": "",
+            "groupName": "htmlReport",
+            "required": false,
+            "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\PSCodeHealthReport.html`"
         }
     ],
     "execution": {
