@@ -1,7 +1,7 @@
 {
     "id": "5b447ab3-b758-458e-b887-d1ec8c7554e6",
     "name": "PSCodeHealth",
-    "friendlyName": "PSCodeHealth (PowerShell code quality analysis)",
+    "friendlyName": "PSCodeHealth (PowerShell code analysis)",
     "description": "Gather PowerShell code quality metrics and enforce quality gates based on these metrics",
     "helpMarkDown": "[More Information](https://github.com/MathieuBuisson/vsts-PSCodeHealth)",
     "category": "Build and release",
@@ -14,7 +14,7 @@
         "Minor": #{Minor}#,
         "Patch": #{Build.BuildId}#
     },
-    "instanceNameFormat": "PowerShell Code Quality Gate",
+    "instanceNameFormat": "PowerShell Code Analysis",
     "demands": [
         "DotNetFramework"
     ],
