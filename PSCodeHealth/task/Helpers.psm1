@@ -2,17 +2,20 @@ Function Get-TaskInputs {
     [CmdletBinding()]
     Param()
 
-    [string]$RootDirectoryPath = Get-VstsTaskVariable -Name 'Build.SourcesDirectory'
+    [string]$Global:RootDirectoryPath = Get-VstsTaskVariable -Name 'Build.SourcesDirectory'
+    Write-VstsTaskVerbose -Message "Value of RootDirectoryPath : $RootDirectoryPath"
 
-    [string]$SourceCodePath = Get-VstsInput -Name SourceCodePath -Default $RootDirectoryPath
-    [string]$TestsPath = Get-VstsInput -Name TestsPath -Default $RootDirectoryPath
-    [bool]$Recurse = Get-VstsInput -Name Recurse -AsBool
+    [string]$Global:SourceCodePath = Get-VstsInput -Name SourceCodePath -Default $RootDirectoryPath
+    [string]$Global:TestsPath = Get-VstsInput -Name TestsPath -Default $RootDirectoryPath
+    [bool]$Global:Recurse = Get-VstsInput -Name Recurse -AsBool
 }
 
 Function Write-TaskInputs {
     [CmdletBinding()]
     Param()
 
+    Write-VstsTaskVerbose -Message "Value of RootDirectoryPath : $RootDirectoryPath"
+    
     Write-VstsTaskVerbose -Message "Value of SourceCodePath : $SourceCodePath"
     Write-VstsTaskVerbose -Message "Value of TestsPath : $TestsPath"
     Write-VstsTaskVerbose -Message "Value of Recurse : $($Recurse)"
