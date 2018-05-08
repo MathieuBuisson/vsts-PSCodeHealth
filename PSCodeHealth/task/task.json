@@ -36,20 +36,20 @@
             "helpMarkDown": "Path of the directory to search for PowerShell files to analyze (it can also be a single script or module). If empty, it defaults to the root of the repo."
         },
         {
+            "name": "Recurse",
+            "type": "boolean",
+            "label": "Search PowerShell files in subdirectories",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "To search PowerShell files in 'Path to Analyze' and (if it is a folder) all subdirectories recursively."
+        },
+        {
             "name": "TestsPath",
             "type": "filePath",
             "label": "Pester Tests Path",
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "Path of the file or directory where Pester tests are located. If empty, it defaults to the same location as 'Path to Analyze'."
-        },
-        {
-            "name": "Recurse",
-            "type": "boolean",
-            "label": "Search SourceCodePath Recursively",
-            "defaultValue": "false",
-            "required": false,
-            "helpMarkDown": "To search PowerShell files in SourceCodePath and all subdirectories recursively."
         },
         {
             "name": "GenerateHtmlReport",
@@ -67,7 +67,7 @@
             "defaultValue": "",
             "groupName": "htmlReport",
             "required": false,
-            "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\\PSCodeHealthReport.html`"
+            "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\\PSCodeHealth.html`"
         }
     ],
     "execution": {

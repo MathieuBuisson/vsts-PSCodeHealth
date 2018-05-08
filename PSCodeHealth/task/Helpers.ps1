@@ -12,7 +12,7 @@ Function Get-PSCodeHealthParamsFromInputs {
     }
 
     If ( Get-VstsInput -Name GenerateHtmlReport -AsBool ) {
-        $HtmlReportPath = Get-VstsInput -Name HtmlReportPath -Default "$StagingDirectory\PSCodeHealthReport.html"
+        $HtmlReportPath = Get-VstsInput -Name HtmlReportPath -Default "$StagingDirectory\PSCodeHealth.html"
         $InputsHashTable.Add('HtmlReportPath', $HtmlReportPath)
 
         # To output both an HTML file and a [PSCodeHealth.Overall.HealthReport] object
