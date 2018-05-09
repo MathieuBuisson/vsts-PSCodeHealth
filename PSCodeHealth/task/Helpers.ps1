@@ -6,9 +6,9 @@ Function Get-PSCodeHealthParamsFromInputs {
     [string]$StagingDirectory = Get-VstsTaskVariable -Name 'Build.ArtifactStagingDirectory'
 
     $InputsHashTable = @{
-        Path = Get-VstsInput -Name SourceCodePath -Default $RootDirectoryPath
-        TestsPath = Get-VstsInput -Name TestsPath -Default $RootDirectoryPath
-        Recurse = Get-VstsInput -Name Recurse -AsBool
+        Path         = Get-VstsInput -Name SourceCodePath -Default $RootDirectoryPath
+        TestsPath    = Get-VstsInput -Name TestsPath -Default $RootDirectoryPath
+        Recurse      = Get-VstsInput -Name Recurse -AsBool
     }
 
     If ( Get-VstsInput -Name GenerateHtmlReport -AsBool ) {
