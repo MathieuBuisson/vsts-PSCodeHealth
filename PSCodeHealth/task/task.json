@@ -49,7 +49,7 @@
             "label": "File(s) to exclude",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "File(s) to exclude from the code analysis. Enter a path element or pattern. Wildcards are permitted."
+            "helpMarkDown": "File(s) to exclude from the code analysis (1 per line). Enter a path element or pattern. Wildcards are permitted."
         },
         {
             "name": "TestsPath",
