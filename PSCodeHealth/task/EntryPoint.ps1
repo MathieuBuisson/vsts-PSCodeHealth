@@ -11,7 +11,8 @@ Try {
     "Exclude type : "
     $PSCodeHealthParams.Exclude.GetType()
     "Exclude count : $($PSCodeHealthParams.Exclude.Count)"
-    $PSCodeHealthParams.Exclude | Get-Member
+    "Exclude value :"
+    $PSCodeHealthParams.Exclude
     #Write-PSCodeHealthParamsFromInputs $PSCodeHealthParams
     #Import-Dependencies
 #
