@@ -18,6 +18,12 @@ Function Get-PSCodeHealthParamsFromInputs {
         # To output both an HTML file and a [PSCodeHealth.Overall.HealthReport] object
         $InputsHashTable.Add('PassThru', $True)
     }
+
+    If ( Get-VstsInput -Name Exclude -Default $False ) {
+        $Exclude = Get-VstsInput -Name Exclude
+        $InputsHashTable.Add('Exclude', $Exclude)
+    }
+
     return $InputsHashTable
 }
 

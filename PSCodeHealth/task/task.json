@@ -44,6 +44,14 @@
             "helpMarkDown": "To search PowerShell files in 'Path to Analyze' and (if it is a folder) all subdirectories recursively."
         },
         {
+            "name": "Exclude",
+            "type": "multiLine",
+            "label": "File(s) to exclude",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "File(s) to exclude from the code analysis. Enter a path element or pattern. Wildcards are permitted."
+        },
+        {
             "name": "TestsPath",
             "type": "filePath",
             "label": "Pester Tests Path",
