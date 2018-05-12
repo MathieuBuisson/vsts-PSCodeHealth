@@ -20,7 +20,7 @@ Function Get-PSCodeHealthParamsFromInputs {
     }
 
     If ( Get-VstsInput -Name Exclude -Default $False ) {
-        $Exclude = (Get-VstsInput -Name Exclude) -split '\n'
+        $Exclude = (Get-VstsInput -Name Exclude) -split '\n' | ForEach-Object { $_.Trim() }
         $InputsHashTable.Add('Exclude', $Exclude)
     }
 

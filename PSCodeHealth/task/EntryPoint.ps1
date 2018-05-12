@@ -9,6 +9,9 @@ Try {
 
     $PSCodeHealthParams = Get-PSCodeHealthParamsFromInputs
     Write-PSCodeHealthParamsFromInputs $PSCodeHealthParams
+    [int]$ExcludeCount = ($PSCodeHealthParams.Exclude | Measure-Object).Count
+    Write-VstsTaskVerbose -Message "Number of elements in 'Exclude' task input : $($ExcludeCount)"
+
     Import-Dependencies
 
     'Running the PowerShell code analysis ...'
