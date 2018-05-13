@@ -65,3 +65,20 @@ Function Import-Dependencies {
     'Loading module [PSCodeHealth] shipped in the VSTS extension'
     Import-Module "$PSScriptRoot\ps_modules\PSCodeHealth\PSCodeHealth.psd1" -Force
 }
+
+Function Get-GateParamsFromInputs {
+    [CmdletBinding()]
+    Param()
+
+
+    $InputsHashTable = @{
+        SettingsGroup   = 'OverallMetrics'
+    }
+
+    If ( Get-VstsInput -Name 'SelectMetrics' -AsBool ) {
+        $MetricNames = 'TODO'
+        $InputsHashTable.Add('MetricName', $MetricNames)
+    }
+
+    return $InputsHashTable
+}
