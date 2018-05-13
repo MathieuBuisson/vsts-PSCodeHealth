@@ -10,7 +10,13 @@ steps:
 - task: PowerShell@1
   inputs:
     scriptType: inlineScript
-    inlineScript: ' $PSVersionTable.PSVersion'
+    inlineScript: |
+     $UnitTestParams = @{
+        Script       = '.\PSCodeHealth\Tests'
+        Strict       = $True
+        CodeCoverage = '.\PSCodeHealth\task\Helpers.ps1'
+     }
+     Invoke-Pester @UnitTestParams
 
 - task: qetza.replacetokens.replacetokens-task.replacetokens@2
   inputs:
