@@ -20,6 +20,14 @@ Try {
     $HealthReport
     'Per-function report view :'
     $HealthReport.FunctionHealthRecords | Format-Table
+
+    $GateParams = Get-GateParamsFromInputs
+    Write-PSCodeHealthParamsFromInputs $GateParams
+    $Compliance = Test-PSCodeHealthCompliance -HealthReport $HealthReport @GateParams
+
+    'Compliance of evaluated code metrics :'
+    $Compliance
+
 }
 Finally {
     Trace-VstsLeavingInvocation $MyInvocation

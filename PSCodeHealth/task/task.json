@@ -99,7 +99,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "ScriptAnalyzerFindingsTotal",
@@ -109,7 +109,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "ScriptAnalyzerErrors",
@@ -119,7 +119,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "ScriptAnalyzerWarnings",
@@ -129,7 +129,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "ScriptAnalyzerFindingsAverage",
@@ -139,7 +139,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "TestsPassRate",
@@ -149,7 +149,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "TestCoverage",
@@ -159,7 +159,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "ComplexityAverage",
@@ -169,7 +169,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         },
         {
             "name": "NestingDepthAverage",
@@ -179,7 +179,7 @@
             "visibleRule": "SelectMetrics = true",
             "groupName": "qualityGate",
             "required": false,
-            "helpMarkDown": "For details on the code metrics collected by `PSCodeHealth`, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
+            "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
         }
     ],
     "execution": {

@@ -108,7 +108,88 @@ Describe 'Write-PSCodeHealthParamsFromInputs' {
         It 'Should return the expected values in each element' {
             Foreach ( $ActualMessage in $Result ) {
                 $ActualMessage |
-                    Should Match 'Value of input \[TestKey\S*\] : TestValue\S*'
+                    Should Match 'Value of \[TestKey\S*\] : TestValue\S*'
+            }
+        }
+    }
+}
+
+Describe 'Get-MetricNamesFromInputs' {
+
+    $MetricsInputNames = @('LinesOfCodeAverage', 'ScriptAnalyzerFindingsTotal', 'ScriptAnalyzerErrors', 'ScriptAnalyzerWarnings', 'ScriptAnalyzerFindingsAverage', 'TestsPassRate', 'TestCoverage', 'ComplexityAverage', 'NestingDepthAverage')
+
+    Context 'None of the metric inputs are selected' {
+
+        Foreach ( $MetricsInput in $MetricsInputNames ) {
+            Mock Get-VstsInput -ParameterFilter { $Name -eq $MetricsInput } { $False }
+        }
+
+        It 'Should return an empty object' {
+            Get-MetricNamesFromInputs | Should BeNullOrEmpty
+        }
+    }
+    Context '4 of the metric inputs are selected' {
+
+        $SelectedMetrics = @('LinesOfCodeAverage', 'ScriptAnalyzerErrors', 'TestsPassRate', 'ComplexityAverage')
+        Foreach ( $MetricsInput in $MetricsInputNames ) {
+            Mock Get-VstsInput -ParameterFilter { $Name -eq $MetricsInput } { $MetricsInput -in $SelectedMetrics }
+        }
+        $Result = Get-MetricNamesFromInputs
+
+        It 'Should return an array of [string]' {
+            $Result | Should BeOfType [string]
+        }
+        It 'Should return 4 elements' {
+            $Result.Count | Should Be 4
+        }
+        It 'Should return elements matching the selected metric inputs' {
+            Foreach ( $MetricName in $Result ) {
+                $MetricName | Should Match 'LinesOfCodeAverage|ScriptAnalyzerErrors|TestsPassRate|ComplexityAverage'
+            }
+        }
+        It 'Should not return elements matching unselected metric inputs' {
+            Foreach ( $MetricName in $Result ) {
+                $MetricName | Should Not Match 'ScriptAnalyzerWarnings|TestCoverage|NestingDepthAverage'
+            }
+        }
+    }
+}
+
+Describe 'Get-GateParamsFromInputs' {
+
+    Context '"SelectMetrics" input is not selected' {
+
+        Mock Get-VstsInput -ParameterFilter { $Name -eq $SelectMetrics } { $False }
+        $Result = Get-GateParamsFromInputs
+
+        It 'Should return a [Hashtable] object' {
+            $Result | Should BeOfType [Hashtable]
+        }
+        It 'Should return a [HashTable] with only 1 key' {
+            $Result.Keys.Count | Should Be 1
+        }
+        It 'Should contain the expected value for "SettingsGroup"' {
+            $Result.SettingsGroup | Should Be 'OverallMetrics'
+        }
+    }
+    Context '"SelectMetrics" input is not selected' {
+
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'SelectMetrics' } { $True }
+        Mock Get-MetricNamesFromInputs { [string[]]('LinesOfCodeAverage', 'ScriptAnalyzerErrors', 'TestsPassRate', 'ComplexityAverage') }
+        $Result = Get-GateParamsFromInputs
+
+        It 'Should return a [Hashtable] object' {
+            $Result | Should BeOfType [Hashtable]
+        }
+        It 'Should return a [HashTable] with 5 keys' {
+            $Result.Keys.Count | Should Be 2
+        }
+        It 'Should have the expected number of elements in the "MetricName" value' {
+            $Result.MetricName.Count | Should Be 4
+        }
+        It 'Should return a "MetricName" value with elements matching the selected metric inputs' {
+            Foreach ( $MetricName in $Result.MetricName ) {
+                $MetricName | Should Match 'LinesOfCodeAverage|ScriptAnalyzerErrors|TestsPassRate|ComplexityAverage'
             }
         }
     }

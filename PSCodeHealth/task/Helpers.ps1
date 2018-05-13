@@ -39,7 +39,7 @@ Function Write-PSCodeHealthParamsFromInputs {
         return
     }
     Foreach ( $InputEntry in $InputsHashTable.GetEnumerator() ) {
-        "Value of input [$($InputEntry.Key)] : $($InputEntry.Value)"
+        "Value of [$($InputEntry.Key)] : $($InputEntry.Value)"
     }
 }
 
@@ -66,18 +66,34 @@ Function Import-Dependencies {
     Import-Module "$PSScriptRoot\ps_modules\PSCodeHealth\PSCodeHealth.psd1" -Force
 }
 
+Function Get-MetricNamesFromInputs {
+    [CmdletBinding()]
+    Param()
+
+    $MetricsInputNames = @('LinesOfCodeAverage', 'ScriptAnalyzerFindingsTotal', 'ScriptAnalyzerErrors', 'ScriptAnalyzerWarnings', 'ScriptAnalyzerFindingsAverage', 'TestsPassRate', 'TestCoverage', 'ComplexityAverage', 'NestingDepthAverage')
+    [System.Collections.ArrayList]$MetricNames = @()
+
+    Foreach ( $MetricsInput in $MetricsInputNames ) {
+        If ( Get-VstsInput -Name $MetricsInput -AsBool ) {
+            $Null = $MetricNames.Add($MetricsInput)
+        }
+    }
+
+    return ($MetricNames -as [string[]])
+}
+
 Function Get-GateParamsFromInputs {
     [CmdletBinding()]
     Param()
 
-
     $InputsHashTable = @{
         SettingsGroup   = 'OverallMetrics'
     }
-
     If ( Get-VstsInput -Name 'SelectMetrics' -AsBool ) {
-        $MetricNames = 'TODO'
-        $InputsHashTable.Add('MetricName', $MetricNames)
+        $MetricNames = Get-MetricNamesFromInputs
+        If ( $MetricNames ) {
+            $InputsHashTable.Add('MetricName', $MetricNames)
+        }
     }
 
     return $InputsHashTable
