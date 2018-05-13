@@ -25,7 +25,7 @@ Try {
     Write-PSCodeHealthParamsFromInputs $GateParams
     $Compliance = Test-PSCodeHealthCompliance -HealthReport $HealthReport @GateParams
 
-    'Compliance of evaluated code metrics :'
+    'Compliance of evaluated metrics :'
     $Compliance
 
 }

@@ -78,6 +78,7 @@
             "type": "string",
             "label": "HTML report path (including file name)",
             "defaultValue": "",
+            "visibleRule": "GenerateHtmlReport = true",
             "groupName": "htmlReport",
             "required": false,
             "helpMarkDown": "Specify the path and file name of the generated HTML report. If empty, it defaults to `$(Build.ArtifactStagingDirectory)\\PSCodeHealth.html`"
