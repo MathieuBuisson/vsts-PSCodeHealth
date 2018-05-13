@@ -30,10 +30,14 @@ Function Get-PSCodeHealthParamsFromInputs {
 Function Write-PSCodeHealthParamsFromInputs {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory, Position=0)]
+        [Parameter(Mandatory, Position = 0)]
+        [AllowNull()]
         [Hashtable]$InputsHashTable
     )
 
+    If ( -not($InputsHashTable) ) {
+        return
+    }
     Foreach ( $InputEntry in $InputsHashTable.GetEnumerator() ) {
         "Value of input [$($InputEntry.Key)] : $($InputEntry.Value)"
     }
