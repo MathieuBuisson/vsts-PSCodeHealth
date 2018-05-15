@@ -20,17 +20,8 @@ it would be.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Please follow the prevailing code conventions in the repository. Differences in style make the code harder to understand for everyone.
 * Make sure your commit messages are in the proper format.
-````
-    Add more cowbell to Get-Something.ps1
-
-    The functionaly of Get-Something would be greatly improved if there was a little
-    more 'pizzazz' added to it. I propose a cowbell. Adding more cowbell has been
-    shown in studies to both increase one's mojo, and cement one's status
-    as a rock legend.
-````
-
-* Make sure you have added all the necessary Pester tests for your changes.
-* Run the Pester tests in the module and make sure they _all_ pass, to verify that your changes have not broken anything.
+* Make sure you have added all the necessary tests for your changes.
+* Run the Pester tests and make sure they _all_ pass, to verify that your changes have not broken anything.
 
 # Documentation
 I am infallible and as such my documenation needs no corectoin. In the highly
