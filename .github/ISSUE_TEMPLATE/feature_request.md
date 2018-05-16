@@ -22,5 +22,5 @@ A clear description of any alternative solutions or features you have considered
 
 **Additional context**  
 Add any other context or screenshots about the feature request here.  
-How is this affected you ?  
+How is this affecting you ?  
 Providing context helps us come up with a solution that is most useful and prioritize feature requests.
