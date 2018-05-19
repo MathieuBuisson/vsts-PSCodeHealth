@@ -53,7 +53,7 @@ Function Get-PSCodeHealthParamsFromInputs {
         $InputsHashTable.Add('PassThru', $True)
 
         $CustomSettingsPath = Get-VstsInput -Name 'CustomSettingsPath'
-        If ( $CustomSettingsPath ) {
+        If ( $CustomSettingsPath -and ($CustomSettingsPath -match '\\\S+\.json$') ) {
             Test-CustomSettingsJson -Path $CustomSettingsPath -ErrorAction Stop
             $InputsHashTable.Add('CustomSettingsPath', $CustomSettingsPath)
         }
@@ -137,7 +137,7 @@ Function Get-GateParamsFromInputs {
     }
 
     $CustomSettingsPath = Get-VstsInput -Name 'CustomSettingsPath'
-    If ( $CustomSettingsPath ) {
+    If ( $CustomSettingsPath -and ($CustomSettingsPath -match '\\\S+\.json$') ) {
         Test-CustomSettingsJson -Path $CustomSettingsPath -ErrorAction Stop
         $InputsHashTable.Add('CustomSettingsPath', $CustomSettingsPath)
     }
