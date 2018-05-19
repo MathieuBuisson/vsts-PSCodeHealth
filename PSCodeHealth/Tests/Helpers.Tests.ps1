@@ -202,7 +202,7 @@ Describe 'Get-GateParamsFromInputs' {
         It 'Should return a [Hashtable] object' {
             $Result | Should BeOfType [Hashtable]
         }
-        It 'Should return a [HashTable] with 5 keys' {
+        It 'Should return a [HashTable] with 2 keys' {
             $Result.Keys.Count | Should Be 2
         }
         It 'Should have the expected number of elements in the "MetricName" value' {
@@ -212,6 +212,27 @@ Describe 'Get-GateParamsFromInputs' {
             Foreach ( $MetricName in $Result.MetricName ) {
                 $MetricName | Should Match 'LinesOfCodeAverage|ScriptAnalyzerErrors|TestsPassRate|ComplexityAverage'
             }
+        }
+    }
+    Context '"CustomSettingsPath" input has a value' {
+
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'SelectMetrics' } { $True }
+        Mock Get-MetricNamesFromInputs { [string[]]('LinesOfCodeAverage', 'ScriptAnalyzerErrors', 'TestsPassRate', 'ComplexityAverage') }
+        [string]$FilePath = "$PSScriptRoot\TestData\Valid.json"
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'CustomSettingsPath' } { $FilePath }
+        $Result = Get-GateParamsFromInputs
+
+        It 'Should return a [Hashtable] object' {
+            $Result | Should BeOfType [Hashtable]
+        }
+        It 'Should return a [HashTable] with 3 keys' {
+            $Result.Keys.Count | Should Be 3
+        }
+        It 'Should return a [HashTable] with a "CustomSettingsPath" key' {
+            $Result.ContainsKey('CustomSettingsPath') | Should Be $True
+        }
+        It 'Should return a [HashTable] with the expected "CustomSettingsPath" value' {
+            $Result.CustomSettingsPath | Should BeLike '*\TestData\Valid.json'
         }
     }
 }

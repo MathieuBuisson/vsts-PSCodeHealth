@@ -52,7 +52,7 @@ Function Get-PSCodeHealthParamsFromInputs {
         # To output both an HTML file and a [PSCodeHealth.Overall.HealthReport] object
         $InputsHashTable.Add('PassThru', $True)
 
-        $CustomSettingsPath = Get-VstsInput -Name CustomSettingsPath
+        $CustomSettingsPath = Get-VstsInput -Name 'CustomSettingsPath'
         If ( $CustomSettingsPath ) {
             Test-CustomSettingsJson -Path $CustomSettingsPath -ErrorAction Stop
             $InputsHashTable.Add('CustomSettingsPath', $CustomSettingsPath)
@@ -134,6 +134,12 @@ Function Get-GateParamsFromInputs {
         If ( $MetricNames ) {
             $InputsHashTable.Add('MetricName', $MetricNames)
         }
+    }
+
+    $CustomSettingsPath = Get-VstsInput -Name 'CustomSettingsPath'
+    If ( $CustomSettingsPath ) {
+        Test-CustomSettingsJson -Path $CustomSettingsPath -ErrorAction Stop
+        $InputsHashTable.Add('CustomSettingsPath', $CustomSettingsPath)
     }
 
     return $InputsHashTable

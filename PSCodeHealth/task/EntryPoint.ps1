@@ -23,6 +23,14 @@ Try {
 
     $GateParams = Get-GateParamsFromInputs
     Write-PSCodeHealthParamsFromInputs $GateParams
+    If ( $GateParams.ContainsKey('CustomSettingsPath') ) {
+        $CustomRules = ConvertFrom-Json (Get-Content $GateParams.CustomSettingsPath -Raw) | Where-Object { $_ }
+        'Custom compliance rules :'
+        Foreach ( $CustomComplianceRule in $CustomRules.OverallMetrics ) {
+            $CustomComplianceRuleString = $CustomComplianceRule | Out-String
+            "$CustomComplianceRuleString"
+        }
+    }
     $Compliance = Test-PSCodeHealthCompliance -HealthReport $HealthReport @GateParams
 
     'Compliance of evaluated metrics :'
