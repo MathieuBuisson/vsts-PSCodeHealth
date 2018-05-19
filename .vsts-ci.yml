@@ -11,6 +11,16 @@ steps:
   inputs:
     scriptType: inlineScript
     inlineScript: |
+     Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
+     Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
+     Install-Module -Name 'Pester' -Scope CurrentUser -Force -SkipPublisherCheck
+     Import-Module 'Pester' -Force
+
+- task: PowerShell@1
+  inputs:
+    scriptType: inlineScript
+    inlineScript: |
      $UnitTestParams = @{
         Script       = '.\PSCodeHealth\Tests'
         Strict       = $True

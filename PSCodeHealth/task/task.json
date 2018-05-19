@@ -181,7 +181,16 @@
             "groupName": "qualityGate",
             "required": false,
             "helpMarkDown": "For details on the code metrics collected by **PSCodeHealth**, please refer to [this documentation page](http://pscodehealth.readthedocs.io/en/latest/Metrics/)."
-        }
+        },
+        {
+            "name": "CustomSettingsPath",
+            "type": "filePath",
+            "label": "Override compliance rules with a custom settings file",
+            "defaultValue": "",
+            "groupName": "qualityGate",
+            "required": false,
+            "helpMarkDown": "Path of a JSON file containing user-defined compliance rules (metrics thresholds, etc...). [More information](http://pscodehealth.readthedocs.io/en/latest/HowDoI/CustomizeComplianceRules)"
+        },
     ],
     "execution": {
         "PowerShell3": {

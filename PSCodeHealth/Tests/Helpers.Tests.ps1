@@ -65,6 +65,27 @@ Describe 'Get-PSCodeHealthParamsFromInputs' {
             }
         }
     }
+    Context 'With "GenerateHtmlReport" and "CustomSettingsPath" inputs' {
+
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'GenerateHtmlReport' } { $True }
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'HtmlReportPath' } { 'Any' }
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'CustomSettingsPath' } { $Sut }
+        Mock Test-CustomSettingsJson { } -Verifiable
+        $Result = Get-PSCodeHealthParamsFromInputs
+
+        It 'Should return a [Hashtable] object' {
+            $Result | Should BeOfType [Hashtable]
+        }
+        It 'Should contain the expected value for "HtmlReportPath"' {
+            $Result.HtmlReportPath | Should Be 'Any'
+        }
+        It 'Should contain the expected value for "CustomSettingsPath"' {
+            $Result.CustomSettingsPath | Should Be $Sut
+        }
+        It 'Should call "Test-CustomSettingsJson" to validate the custom settings file' {
+            Assert-VerifiableMock
+        }
+    }
 }
 
 Describe 'Write-PSCodeHealthParamsFromInputs' {
@@ -191,6 +212,46 @@ Describe 'Get-GateParamsFromInputs' {
             Foreach ( $MetricName in $Result.MetricName ) {
                 $MetricName | Should Match 'LinesOfCodeAverage|ScriptAnalyzerErrors|TestsPassRate|ComplexityAverage'
             }
+        }
+    }
+}
+
+Describe 'Test-CustomSettingsJson' {
+
+    Context 'The file specified does not contain valid JSON' {
+
+        $InvalidJson = "$PSScriptRoot\TestData\Invalid.json"
+
+        It 'Should throw "An error occurred when attempting to parse JSON data"' {
+            { Test-CustomSettingsJson $InvalidJson } |
+                Should Throw "An error occurred when attempting to parse JSON data"
+        }
+    }
+    Context 'The JSON content is missing a metrics group' {
+
+        $MissingGroup = "$PSScriptRoot\TestData\MissingGroup.json"
+
+        It 'Should throw that the group PerFunctionMetrics is missing from the JSON' {
+            { Test-CustomSettingsJson $MissingGroup } |
+                Should Throw 'The metrics group PerFunctionMetrics is missing from the JSON'
+        }
+    }
+    Context "The JSON content contains a rule for a metric which doesn't exist in PSCodeHealth" {
+
+        $InvalidMetric = "$PSScriptRoot\TestData\InvalidMetric.json"
+
+        It "Should throw that the custom rule doesn't match a valid metric name" {
+            { Test-CustomSettingsJson $InvalidMetric } |
+                Should Throw "The custom rule [Invalid] does not match a valid metric name"
+        }
+    }
+    Context "The JSON content contains 2 valid rules" {
+
+        $Valid = "$PSScriptRoot\TestData\Valid.json"
+        $Results = Test-CustomSettingsJson $Valid
+
+        It 'Should return nothing' {
+            $Results | Should BeNullOrEmpty
         }
     }
 }

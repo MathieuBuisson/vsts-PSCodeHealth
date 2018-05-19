@@ -1,3 +1,37 @@
+Function Test-CustomSettingsJson {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Position = 0, Mandatory)]
+        [ValidateScript( { Test-Path $_ -PathType Leaf })]
+        [string]$Path
+    )
+
+    Try {
+        $CustomSettings = ConvertFrom-Json (Get-Content -Path $Path -Raw) -ErrorAction Stop | Where-Object { $_ }
+    }
+    Catch {
+        Throw "An error occurred when attempting to parse JSON data from the file $Path. Please verify that the content of this file is in valid JSON format."
+    }
+
+    $MetricsGroupNames = @('PerFunctionMetrics', 'OverallMetrics')
+    $MetricsGroupNamesFromFile = ($CustomSettings | Get-Member -MemberType Properties).Name
+    Foreach ( $MetricsGroupName in $MetricsGroupNames ) {
+        If ( $MetricsGroupName -notin $MetricsGroupNamesFromFile ) {
+            Throw "The metrics group $MetricsGroupName is missing from the JSON content of $Path."
+        }
+    }
+
+    $MetricsRules = $CustomSettings.OverallMetrics
+    $MetricNames = @('LinesOfCodeTotal', 'LinesOfCodeAverage', 'ScriptAnalyzerFindingsTotal', 'ScriptAnalyzerErrors', 'ScriptAnalyzerWarnings', 'ScriptAnalyzerInformation', 'ScriptAnalyzerFindingsAverage', 'NumberOfFailedTests', 'TestsPassRate', 'TestCoverage', 'CommandsMissedTotal', 'ComplexityAverage', 'ComplexityHighest', 'NestingDepthAverage', 'NestingDepthHighest')
+    Foreach ( $MetricsRule in $MetricsRules ) {
+        $MetricName = ($MetricsRule | Get-Member -MemberType NoteProperty).Name
+        Write-VstsTaskVerbose -Message "Validating custom rule for metric : [$MetricName]."
+        If ( $MetricName -notin $MetricNames ) {
+            Throw "The custom rule [$MetricName] does not match a valid metric name in PSCodeHealth."
+        }
+    }
+}
+
 Function Get-PSCodeHealthParamsFromInputs {
     [CmdletBinding()]
     Param()
@@ -17,6 +51,12 @@ Function Get-PSCodeHealthParamsFromInputs {
 
         # To output both an HTML file and a [PSCodeHealth.Overall.HealthReport] object
         $InputsHashTable.Add('PassThru', $True)
+
+        $CustomSettingsPath = Get-VstsInput -Name CustomSettingsPath
+        If ( $CustomSettingsPath ) {
+            Test-CustomSettingsJson -Path $CustomSettingsPath -ErrorAction Stop
+            $InputsHashTable.Add('CustomSettingsPath', $CustomSettingsPath)
+        }
     }
 
     If ( Get-VstsInput -Name Exclude -Default $False ) {
