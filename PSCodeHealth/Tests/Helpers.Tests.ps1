@@ -299,8 +299,8 @@ Describe 'Invoke-ComplianceFailureAction' {
     $TestComplianceResults = @{ MetricName = 'Test'; Value = 11; FailThreshold = 10; HigherIsBetter=$False },
         @{ MetricName = 'Test2'; Value = 19; FailThreshold = 20; HigherIsBetter=$True }
 
-    $ExpectedMessage = 'Metric [Test] with value [11] is above quality gate set to [10].'
-    $ExpectedMessage2 = 'Metric [Test2] with value [19] is below quality gate set to [20].'
+    $ExpectedMessage = 'Code metric [Test] with value [11] is above quality gate set to [10].'
+    $ExpectedMessage2 = 'Code metric [Test2] with value [19] is below quality gate set to [20].'
     Mock Write-VstsTaskWarning { } -ParameterFilter { $Message -eq $ExpectedMessage }
     Mock Write-VstsTaskWarning { } -ParameterFilter { $Message -eq $ExpectedMessage2 }
 

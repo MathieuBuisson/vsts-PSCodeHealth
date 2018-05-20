@@ -165,7 +165,7 @@ Function New-FailureMessage {
     Else {
         $CompareString = 'above'
     }
-    $Message = 'Metric [{0}] with value [{1}] is {2} quality gate set to [{3}].' -f $FailedRule.MetricName, $FailedRule.Value, $CompareString, $FailedRule.FailThreshold
+    $Message = 'Code metric [{0}] with value [{1}] is {2} quality gate set to [{3}].' -f $FailedRule.MetricName, $FailedRule.Value, $CompareString, $FailedRule.FailThreshold
     return $Message
 }
 
@@ -190,6 +190,11 @@ Function Invoke-ComplianceFailureAction {
     }
 
     If ( $FailureAction -eq 'fail') {
-
+        [string]$Message = "Failed compliance rules :`n"
+        Foreach ( $FailedRule in $ComplianceResult ) {
+            $FailureMessage = New-FailureMessage $FailedRule
+            $Message += "$FailureMessage `n"
+        }
+        Write-VstsTaskError -Message $Message
     }
 }
