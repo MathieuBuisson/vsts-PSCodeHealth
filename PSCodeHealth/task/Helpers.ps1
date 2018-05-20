@@ -181,7 +181,7 @@ Function Invoke-ComplianceFailureAction {
         [PSObject[]]$ComplianceResult
     )
 
-    If ( $FailureAction -eq 'warning' ) {
+    If ( $FailureAction -ne 'continue' ) {
         Write-VstsTaskWarning -Message 'Failed compliance rules :'
         Foreach ( $FailedRule in $ComplianceResult ) {
             $Message = New-FailureMessage $FailedRule
@@ -190,11 +190,9 @@ Function Invoke-ComplianceFailureAction {
     }
 
     If ( $FailureAction -eq 'fail') {
-        [string]$Message = "Failed compliance rules :`n"
-        Foreach ( $FailedRule in $ComplianceResult ) {
-            $FailureMessage = New-FailureMessage $FailedRule
-            $Message += "$FailureMessage `n"
-        }
-        Write-VstsTaskError -Message $Message
+        $FailedMetricNames = $ComplianceResult.MetricName -join ', '
+        $FailureMessage = "The following metrics failed the quality gate : $FailedMetricNames"
+        #Write-VstsTaskError -Message $FailureMessage
+        Write-VstsSetResult -Result 'Failed' -Message $FailureMessage
     }
 }
