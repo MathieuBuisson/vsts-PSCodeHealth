@@ -296,8 +296,8 @@ Describe 'Get-ComplianceFailureAction' {
 
 Describe 'Invoke-ComplianceFailureAction' {
 
-    $TestComplianceResults = @{ MetricName = 'Test'; Value = 11; FailThreshold = 10; HigherIsBetter=$False },
-        @{ MetricName = 'Test2'; Value = 19; FailThreshold = 20; HigherIsBetter=$True }
+    $TestComplianceResults = @{ MetricName = 'Test'; Value = 11; FailThreshold = 10; HigherIsBetter = $False },
+    @{ MetricName = 'Test2'; Value = 19; FailThreshold = 20; HigherIsBetter = $True }
 
     $ExpectedMessage = 'Code metric [Test] with value [11] is above quality gate set to [10].'
     $ExpectedMessage2 = 'Code metric [Test2] with value [19] is below quality gate set to [20].'
@@ -320,5 +320,25 @@ Describe 'Invoke-ComplianceFailureAction' {
     }
     Context '"FailureAction" input has a value of "fail"' {
 
+        $ExpectedErrorMessage = 'The following metric(s) failed the quality gate : Test, Test2'
+        Mock Write-VstsTaskError { } -ParameterFilter { $Message -eq $ExpectedErrorMessage }
+        Mock Write-VstsSetResult { } -ParameterFilter { $Message -eq $ExpectedErrorMessage }
+        $Result = Invoke-ComplianceFailureAction -FailureAction 'fail' -ComplianceResult $TestComplianceResults
+
+        It 'Should return nothing' {
+            $Result | Should BeNullOrEmpty
+        }
+        It 'Should call "Write-VstsTaskWarning" with the expected message for metric "Test"' {
+            Assert-MockCalled Write-VstsTaskWarning -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedMessage } -Exactly 1
+        }
+        It 'Should call "Write-VstsTaskWarning" with the expected message for metric "Test2"' {
+            Assert-MockCalled Write-VstsTaskWarning -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedMessage2 } -Exactly 1
+        }
+        It 'Should call "Write-VstsTaskError" with the expected message' {
+            Assert-MockCalled Write-VstsTaskError -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedErrorMessage } -Exactly 1
+        }
+        It 'Should call "Write-VstsSetResult" with the expected message' {
+            Assert-MockCalled Write-VstsSetResult -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedErrorMessage } -Exactly 1
+        }
     }
 }
