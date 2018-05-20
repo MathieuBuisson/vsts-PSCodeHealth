@@ -127,7 +127,7 @@ Function Get-GateParamsFromInputs {
     Param()
 
     $InputsHashTable = @{
-        SettingsGroup   = 'OverallMetrics'
+        SettingsGroup = 'OverallMetrics'
     }
     If ( Get-VstsInput -Name 'SelectMetrics' -AsBool ) {
         $MetricNames = Get-MetricNamesFromInputs
@@ -143,4 +143,53 @@ Function Get-GateParamsFromInputs {
     }
 
     return $InputsHashTable
+}
+
+Function Get-ComplianceFailureAction {
+    [CmdletBinding()]
+    Param()
+
+    [string]$ComplianceFailureAction = Get-VstsInput -Name 'ComplianceFailureAction'
+    $ComplianceFailureAction
+}
+
+Function New-FailureMessage {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory, Position = 0)]
+        [PSObject[]]$FailedRule
+    )
+    If ( $FailedRule.HigherIsBetter ) {
+        $CompareString = 'below'
+    }
+    Else {
+        $CompareString = 'above'
+    }
+    $Message = 'Metric [{0}] with value [{1}] is {2} quality gate set to [{3}].' -f $FailedRule.MetricName, $FailedRule.Value, $CompareString, $FailedRule.FailThreshold
+    return $Message
+}
+
+
+Function Invoke-ComplianceFailureAction {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory, Position = 0)]
+        [ValidateSet('continue', 'warning', 'fail')]
+        [string]$FailureAction,
+
+        [Parameter(Mandatory, Position = 1)]
+        [PSObject[]]$ComplianceResult
+    )
+
+    If ( $FailureAction -eq 'warning' ) {
+        Write-VstsTaskWarning -Message 'Failed compliance rules :'
+        Foreach ( $FailedRule in $ComplianceResult ) {
+            $Message = New-FailureMessage $FailedRule
+            Write-VstsTaskWarning -Message $Message
+        }
+    }
+
+    If ( $FailureAction -eq 'fail') {
+
+    }
 }

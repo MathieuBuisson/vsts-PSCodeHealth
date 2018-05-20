@@ -69,7 +69,8 @@ Describe 'Get-PSCodeHealthParamsFromInputs' {
 
         Mock Get-VstsInput -ParameterFilter { $Name -eq 'GenerateHtmlReport' } { $True }
         Mock Get-VstsInput -ParameterFilter { $Name -eq 'HtmlReportPath' } { 'Any' }
-        Mock Get-VstsInput -ParameterFilter { $Name -eq 'CustomSettingsPath' } { $Sut }
+        [string]$SettingsFilePath = "$PSScriptRoot\TestData\Valid.json"
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'CustomSettingsPath' } { $SettingsFilePath }
         Mock Test-CustomSettingsJson { } -Verifiable
         $Result = Get-PSCodeHealthParamsFromInputs
 
@@ -80,7 +81,7 @@ Describe 'Get-PSCodeHealthParamsFromInputs' {
             $Result.HtmlReportPath | Should Be 'Any'
         }
         It 'Should contain the expected value for "CustomSettingsPath"' {
-            $Result.CustomSettingsPath | Should Be $Sut
+            $Result.CustomSettingsPath | Should Be $SettingsFilePath
         }
         It 'Should call "Test-CustomSettingsJson" to validate the custom settings file' {
             Assert-VerifiableMock
@@ -274,5 +275,50 @@ Describe 'Test-CustomSettingsJson' {
         It 'Should return nothing' {
             $Results | Should BeNullOrEmpty
         }
+    }
+}
+
+Describe 'Get-ComplianceFailureAction' {
+
+    Context '"ComplianceFailureAction" input has a value of "fail"' {
+
+        Mock Get-VstsInput -ParameterFilter { $Name -eq 'ComplianceFailureAction' } { 'fail' }
+        $Result = Get-ComplianceFailureAction
+
+        It 'Should return a [string]' {
+            $Result | Should BeOfType [string]
+        }
+        It 'Should return the value "fail"' {
+            $Result | Should Be 'fail'
+        }
+    }
+}
+
+Describe 'Invoke-ComplianceFailureAction' {
+
+    $TestComplianceResults = @{ MetricName = 'Test'; Value = 11; FailThreshold = 10; HigherIsBetter=$False },
+        @{ MetricName = 'Test2'; Value = 19; FailThreshold = 20; HigherIsBetter=$True }
+
+    $ExpectedMessage = 'Metric [Test] with value [11] is above quality gate set to [10].'
+    $ExpectedMessage2 = 'Metric [Test2] with value [19] is below quality gate set to [20].'
+    Mock Write-VstsTaskWarning { } -ParameterFilter { $Message -eq $ExpectedMessage }
+    Mock Write-VstsTaskWarning { } -ParameterFilter { $Message -eq $ExpectedMessage2 }
+
+    Context '"FailureAction" input has a value of "warning"' {
+
+        $Result = Invoke-ComplianceFailureAction -FailureAction 'warning' -ComplianceResult $TestComplianceResults
+
+        It 'Should return nothing' {
+            $Result | Should BeNullOrEmpty
+        }
+        It 'Should call "Write-VstsTaskWarning" with the expected message for metric "Test"' {
+            Assert-MockCalled Write-VstsTaskWarning -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedMessage } -Exactly 1
+        }
+        It 'Should call "Write-VstsTaskWarning" with the expected message for metric "Test2"' {
+            Assert-MockCalled Write-VstsTaskWarning -Scope 'Context' -ParameterFilter { $Message -eq $ExpectedMessage2 } -Exactly 1
+        }
+    }
+    Context '"FailureAction" input has a value of "fail"' {
+
     }
 }

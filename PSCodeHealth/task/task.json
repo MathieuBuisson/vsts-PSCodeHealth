@@ -191,6 +191,20 @@
             "required": false,
             "helpMarkDown": "Path of a JSON file containing user-defined compliance rules (metrics thresholds, etc...). [More information](http://pscodehealth.readthedocs.io/en/latest/HowDoI/CustomizeComplianceRules)"
         },
+        {
+            "name": "ComplianceFailureAction",
+            "type": "pickList",
+            "label": "Action to take in case of compliance failure(s)",
+            "defaultValue": "warning",
+            "groupName": "qualityGate",
+            "required": true,
+            "options": {
+                "continue": "Silently continue",
+                "warning": "Log warning",
+                "fail": "Log error and set task result to 'Failed'"
+            },
+            "helpMarkDown": "Action to take if there is at least 1 of the evaluated metrics rules with a compliance result of : 'Fail'."
+        }
     ],
     "execution": {
         "PowerShell3": {

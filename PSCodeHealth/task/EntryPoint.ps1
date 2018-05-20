@@ -36,6 +36,13 @@ Try {
     'Compliance of evaluated metrics :'
     $Compliance
 
+    $FailedRules = $Compliance | Where-Object Result -eq 'Fail'
+    If ( $FailedRules ) {
+        $FailureAction = Get-ComplianceFailureAction
+        "Compliance failure action : `n$FailureAction"
+
+        Invoke-ComplianceFailureAction -FailureAction $FailureAction -ComplianceResult $FailedRules
+    }
 }
 Finally {
     Trace-VstsLeavingInvocation $MyInvocation
