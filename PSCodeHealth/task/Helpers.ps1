@@ -192,7 +192,7 @@ Function Invoke-ComplianceFailureAction {
     If ( $FailureAction -eq 'fail') {
         $FailedMetricNames = $ComplianceResult.MetricName -join ', '
         $FailureMessage = "The following metrics failed the quality gate : $FailedMetricNames"
-        #Write-VstsTaskError -Message $FailureMessage
+        Write-VstsTaskError -Message $FailureMessage
         Write-VstsSetResult -Result 'Failed' -Message $FailureMessage
     }
 }
