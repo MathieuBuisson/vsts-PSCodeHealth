@@ -32,8 +32,8 @@ It is essentially a wrapper around the **[PSCodeHealth](https://github.com/Mathi
   * Browse to the [Visual Studio Team Services marketplace](https://marketplace.visualstudio.com/vsts)  
   * In the search box type : `pscodehealth`  
   * There should be only 1 result, click on it  
-  * Click on the "Get it free" button  
-  * Select your VSTS account and click "Install"  
+  * Click on the "**Get it free**" button  
+  * Select your VSTS account and click "**Install**"  
   * After a few seconds, you should see a message telling that you are all set and a link to your VSTS account  
 
 Once installed in your VSTS account, the **PSCodeHealth** task will be available for :  
