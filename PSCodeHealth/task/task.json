@@ -18,7 +18,7 @@
     "demands": [
         "DotNetFramework"
     ],
-    "minimumAgentVersion": "2.133.3",
+    "minimumAgentVersion": "2.131.0",
     "groups": [
         {
             "name": "htmlReport",
